@@ -3,7 +3,9 @@ class SessionsController < ApplicationController
     @title = 'Sign In'
   end
 
-  def destory
+  def destroy
+    sign_out
+    redirect_to root_path
   end
   
   def create
@@ -11,7 +13,7 @@ class SessionsController < ApplicationController
     password = params[:session][:password]
     user = User.authenticate(email, password)
     if user.nil?
-      flash[:error] = "Illegal user email or password"
+      flash.now[:error] = "Illegal user email or password"
       @title = 'Sign In'
       render 'new'
     else
