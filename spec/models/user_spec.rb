@@ -104,4 +104,22 @@ describe User do
       end
   end #end of password encrypted
   
+  describe "remember me" do
+    before(:each) do
+      @user  = User.create!(@valid_attributes)
+    end
+    
+    it "should have a remember token" do
+      @user.should respond_to(:remember_token)
+    end
+    
+    it "should have a remember_me! method" do
+      @user.should respond_to(:remember_me!)
+    end
+    
+    it "should set the remember token" do
+      @user.remember_me!
+      @user.remember_token.should_not be_nil
+    end
+  end
 end
